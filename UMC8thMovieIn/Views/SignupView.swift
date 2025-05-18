@@ -17,7 +17,7 @@ struct SignupView: View {
                 .font(.pixelifySemiBold30)
                 .foregroundStyle(.point)
             Text("Hello, world!")
-                .font(.interBold22)
+                .font(.pretendardBold22)
                 .foregroundStyle(.text2)
         }
     }

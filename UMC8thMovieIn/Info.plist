@@ -5,11 +5,11 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Galmuri7.ttf</string>
-		<string>Inter-VariableFont_opsz,wght.ttf</string>
 		<string>PixelifySans-Bold.ttf</string>
 		<string>PixelifySans-Medium.ttf</string>
 		<string>PixelifySans-Regular.ttf</string>
 		<string>PixelifySans-SemiBold.ttf</string>
+		<string>PretendardVariable.ttf</string>
 	</array>
 </dict>
 </plist>
