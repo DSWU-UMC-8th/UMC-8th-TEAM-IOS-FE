@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0782A8922DE2A3C800BF5B9E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0782A8912DE2A3C800BF5B9E /* NetworkManager.swift */; };
+		2BCEE9222DE5FBE8002D915C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2BCEE9212DE5FBE8002D915C /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BCEE9222DE5FBE8002D915C /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +86,7 @@
 			);
 			name = UMC8thMovieIn;
 			packageProductDependencies = (
+				2BCEE9212DE5FBE8002D915C /* Alamofire */,
 			);
 			productName = UMC8thMovieIn;
 			productReference = 238557C52DD9974C008F25B1 /* UMC8thMovieIn.app */;
@@ -113,6 +116,9 @@
 			);
 			mainGroup = 238557BC2DD9974C008F25B1;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				2BCEE9202DE5FBE8002D915C /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 238557C62DD9974C008F25B1 /* Products */;
 			projectDirPath = "";
@@ -344,6 +350,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2BCEE9202DE5FBE8002D915C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2BCEE9212DE5FBE8002D915C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2BCEE9202DE5FBE8002D915C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 238557BD2DD9974C008F25B1 /* Project object */;
 }
