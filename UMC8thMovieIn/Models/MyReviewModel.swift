@@ -8,22 +8,15 @@
 import Foundation
 import SwiftUI
 
-struct ReviewModel: Decodable {
-    let movieTiTle: String
-    let movieImage: String
-    let movieRating: Int
-    let movieReview: String
-}
-/*
 struct MyReviewResponse: Decodable {
     let isSuccess: Bool
     let code: String
     let message: String
-    let result: MyReviewModel
+    let result: MyReviewResult
 }
 
 struct MyReviewResult: Decodable {
-    let MyReviewModelss: [MyReviewModel]
+    let myReviews: [MyReviewModel]  
 }
 
 struct MyReviewModel: Decodable {
@@ -32,4 +25,4 @@ struct MyReviewModel: Decodable {
     let movieRating: Int
     let movieReview: String 
 }
-*/
+
