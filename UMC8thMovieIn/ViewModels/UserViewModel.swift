@@ -13,6 +13,8 @@ class UserViewModel: ObservableObject {
     @Published var userInfo: UserInfoModel? = nil
     @Published var errorMessage: String?
     
+    
+    
     func fetchUserInfo(userId: Int) async {
         do {
             let response = try await APIClient.shared.fetchUserInfo(userId: userId)
