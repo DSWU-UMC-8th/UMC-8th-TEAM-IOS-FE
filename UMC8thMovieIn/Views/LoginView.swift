@@ -14,6 +14,7 @@ struct LoginView: View {
     @State private var alertMessage = ""
     @State private var isLoggedIn = false
     @AppStorage("token") var token: String = ""
+    @AppStorage("userId") private var storedUserId: Int = -1
     
     var body: some View {
         NavigationStack {
@@ -99,6 +100,7 @@ struct LoginView: View {
                     DispatchQueue.main.async {
                         self.token = res.token
                         self.isLoggedIn = true
+                        self.storedUserId = res.result.userId // AppStorage에 userId 저장
                     }
                     print(res.result.userId)
                 case .failure(let err):
@@ -110,6 +112,7 @@ struct LoginView: View {
             }
         }
     }
+
 
 #Preview {
     LoginView()
