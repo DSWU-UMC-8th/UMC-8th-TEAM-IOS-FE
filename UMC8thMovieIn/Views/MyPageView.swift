@@ -14,7 +14,6 @@ struct MyPageView: View {
     //@AppStorage("nickname") private var nickname: String = "닉네임"
     //@AppStorage("email") private var email: String = "email@naver.com"
     @AppStorage("userId") private var userId: Int = 5
-    //let userId: Int
     
     var body: some View {
         VStack (spacing: 0){
@@ -72,6 +71,7 @@ struct MyPageView: View {
         }
         .padding(.horizontal, 19)
         .padding(.vertical, 34)
+        .frame(maxWidth: .infinity)
         .background(.base)
     }
     
@@ -102,7 +102,6 @@ struct MyPageView: View {
                             .font(.pretendardMedium16)
                     }
                 }
-                .frame(maxWidth: .infinity)
             }
         }
     }
