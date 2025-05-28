@@ -6,21 +6,28 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MyPageView: View {
-    @State private var viewModel = ReviewViewModel()
-    @AppStorage("nickName") private var nickName: String = "닉네임"
-    @AppStorage("email") private var email: String = "email@naver.com"
+    @StateObject private var reviewViewModel = MyReviewViewModel()
+    @StateObject private var userViewModel = UserViewModel()
+    //@AppStorage("nickname") private var nickname: String = "닉네임"
+    //@AppStorage("email") private var email: String = "email@naver.com"
+    @AppStorage("userId") private var userId: Int = 5
     
     var body: some View {
         VStack (spacing: 0){
-            infoGroup
+            infoGroup(userInfo: userViewModel.userInfo)
             
             myReviewGroup
         }
+        .task {
+                await reviewViewModel.fetchMyReview(userId: userId)
+                await userViewModel.fetchUserInfo(userId: userId)
+        }
     }
     
-    private var infoGroup: some View {
+    private func infoGroup(userInfo: UserInfoModel?) -> some View {
         HStack(spacing: 12) {
             Circle()
                 .frame(width: 61, height: 61)
@@ -32,12 +39,18 @@ struct MyPageView: View {
                 }
             
             VStack (alignment: .leading, spacing: 4){
-                Text(nickName)
-                    .font(.galmuri20)
-                
-                Text(verbatim: email) // 자동 링크 변환 막기
-                    .font(.pretendardSemibold20)
-                    .foregroundStyle(.black)
+                if let userInfo = userViewModel.userInfo {
+                                    Text(userInfo.nickname)
+                                        .font(.galmuri20)
+
+                                    Text(verbatim: userInfo.email)
+                                        .font(.pretendardSemibold20)
+                                        .foregroundStyle(.black)
+                                }
+                else {
+                                    Text("사용자 정보를 불러올 수 없습니다.")
+                                        .foregroundColor(.red)
+                                }
             }
             
             Spacer()
@@ -51,18 +64,20 @@ struct MyPageView: View {
         VStack(alignment: .leading, spacing: 24) {
             Text("내가 쓴 리뷰")
                 .font(.galmuri(size: 30))
+                .frame(maxWidth: .infinity, alignment: .leading)
             
-            MyReviewSection(reviews: viewModel.MyReviews)
+            MyReviewSection(reviews: reviewViewModel.myReviews)
             
             Spacer()
         }
         .padding(.horizontal, 19)
         .padding(.vertical, 34)
+        .frame(maxWidth: .infinity)
         .background(.base)
     }
     
     // 내가 쓴 리뷰 섹션
-    private func MyReviewSection(reviews: [ReviewModel]) -> some View {
+    private func MyReviewSection(reviews: [MyReviewModel]) -> some View {
         ForEach(reviews.indices, id: \.self) { index in
             VStack(alignment: .leading, spacing: 21) {
                 HStack(spacing: 19) {

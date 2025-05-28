@@ -45,7 +45,8 @@ class NetworkManager {
 
     private let baseURL = "http://52.78.195.123:3000"
 
-    func login(username: String, password: String, completion: @escaping (Result<LoginResponse, Error>) -> Void) {
+    
+     func login(username: String, password: String, completion: @escaping (Result<LoginResponse, Error>) -> Void) {
         request(endpoint: "/api/login", method: "POST", body: [
             "username": username,
             "password": password
