@@ -11,7 +11,7 @@ import SwiftUI
 struct UMC8thMovieInApp: App {
     var body: some Scene {
         WindowGroup {
-            AppEntryView()
+            LoginView()
         }
     }
 }
