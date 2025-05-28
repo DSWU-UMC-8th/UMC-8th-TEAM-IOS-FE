@@ -114,6 +114,10 @@ extension Font {
         return .galmuri(size: 20)
     }
     
+    static var galmuri18: Font {
+        return .galmuri(size: 18)
+    }
+    
     static var galmuri15: Font {
         return .galmuri(size: 15)
     }
