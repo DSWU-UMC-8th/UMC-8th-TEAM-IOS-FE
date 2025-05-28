@@ -6,34 +6,74 @@
 //
 
 import Foundation
-import SwiftUI
+import Alamofire
 
 @Observable
 class MovieViewModel {
-    let recommendMovies: [MovieModel] = [
-        .init(movieImage: .init(""), movieName: "추천영화1"),
-        .init(movieImage: .init(""), movieName: "추천영화2"),
-        .init(movieImage: .init(""), movieName: "추천영화3"),
-        .init(movieImage: .init(""), movieName: "추천영화4"),
-        .init(movieImage: .init(""), movieName: "추천영화5"),
-        .init(movieImage: .init(""), movieName: "추천영화6"),
-    ]
+    var recommendMovies: [MovieModel] = []
+    var nowplayingMovies: [MovieModel] = []
+    var topratedMovies: [MovieModel] = []
+
+    init() {
+        fetchRecommendedMovies()
+        fetchNowPlayingMovies()
+        fetchTopRatedMovies()
+    }
+
+    func fetchRecommendedMovies() {
+        let url = "http://52.78.195.123:3000/api/home/movies/recommended"
+
+        AF.request(url)
+            .validate()
+            .responseDecodable(of: MovieResponse.self) { response in
+                switch response.result {
+                case .success(let movieResponse):
+                    if movieResponse.isSuccess {
+                        Task { @MainActor in
+                            self.recommendMovies = movieResponse.result
+                        }
+                    }
+                case .failure(let error):
+                    print("영화 추천 API 실패: \(error.localizedDescription)")
+                }
+            }
+    }
     
-    let recentMovies: [MovieModel] = [
-        .init(movieImage: .init(""), movieName: "최신영화1"),
-        .init(movieImage: .init(""), movieName: "최신영화2"),
-        .init(movieImage: .init(""), movieName: "최신영화3"),
-        .init(movieImage: .init(""), movieName: "최신영화4"),
-        .init(movieImage: .init(""), movieName: "최신영화5"),
-        .init(movieImage: .init(""), movieName: "최신영화6"),
-    ]
+    func fetchNowPlayingMovies() {
+        let url = "http://52.78.195.123:3000/api/home/movies/now-playing"
+        
+        AF.request(url)
+            .validate()
+            .responseDecodable(of: MovieResponse.self) { response in
+                switch response.result {
+                case .success(let movieResponse):
+                    if movieResponse.isSuccess {
+                        Task { @MainActor in
+                            self.nowplayingMovies = movieResponse.result
+                        }
+                    }
+                case .failure(let error):
+                    print("현재 상영작 API 실패: \(error.localizedDescription)")
+                }
+            }
+    }
     
-    let reviewMovies: [MovieModel] = [
-        .init(movieImage: .init(""), movieName: "리뷰좋은영화1"),
-        .init(movieImage: .init(""), movieName: "리뷰좋은영화2"),
-        .init(movieImage: .init(""), movieName: "리뷰좋은영화3"),
-        .init(movieImage: .init(""), movieName: "리뷰좋은영화4"),
-        .init(movieImage: .init(""), movieName: "리뷰좋은영화5"),
-        .init(movieImage: .init(""), movieName: "리뷰좋은영화6"),
-    ]
+    func fetchTopRatedMovies() {
+        let url = "http://52.78.195.123:3000/api/home/movies/top-rated"
+        
+        AF.request(url)
+            .validate()
+            .responseDecodable(of: MovieResponse.self) { response in
+                switch response.result {
+                case .success(let movieResponse):
+                    if movieResponse.isSuccess {
+                        Task { @MainActor in
+                            self.topratedMovies = movieResponse.result
+                        }
+                    }
+                case .failure(let error):
+                    print("현재 상영작 API 실패: \(error.localizedDescription)")
+                }
+            }
+    }
 }

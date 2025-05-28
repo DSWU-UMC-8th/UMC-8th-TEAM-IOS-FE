@@ -13,47 +13,48 @@ struct MovieDetailView: View {
     let movieId: Int
     
     @State private var selectedOption: String? = nil
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0){
-                TopGroup
-                ScrollView{
-                    VStack(spacing: 0) {
-                        if let detail = viewModel.movieDetail {
-                            MovieInfoGroup(detail: detail)
-                        } else if let error = viewModel.errorMessage {
-                            Text(error)
-                                .foregroundColor(.red)
-                                .padding()
-                            Spacer()
-                        } else {
-                            ProgressView()
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        }
-                        ReviewTitleGroup
-                        OptionGroup
-                        ReviewGroup
+        VStack(spacing: 0){
+            TopGroup
+            ScrollView{
+                VStack(spacing: 0) {
+                    if let detail = viewModel.movieDetail {
+                        MovieInfoGroup(detail: detail)
+                    } else if let error = viewModel.errorMessage {
+                        Text(error)
+                            .foregroundColor(.red)
+                            .padding()
                         Spacer()
+                    } else {
+                        ProgressView()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                    .task {
-                        await viewModel.loadMovieDetail(movieId: movieId)
-                        await viewModel.loadReviews(movieId: movieId)
-                    }
+                    ReviewTitleGroup
+                    OptionGroup
+                    ReviewGroup
+                    Spacer()
                 }
-                .ignoresSafeArea()
-                .scrollIndicators(.hidden)
-                .background(.base)
+                .task {
+                    await viewModel.loadMovieDetail(movieId: movieId)
+                    await viewModel.loadReviews(movieId: movieId)
+                }
             }
+            .ignoresSafeArea()
+            .scrollIndicators(.hidden)
+            .background(.base)
         }
-        
+        .navigationBarBackButtonHidden()
     }
     
     //상단 바
     private var TopGroup: some View {
         VStack {
             HStack(spacing: 115){
-                NavigationLink(destination: MainView()){
+                Button(action: {
+                    dismiss()
+                }) {
                     Image(.logo)
                         .resizable()
                         .frame(width: 34, height: 34)

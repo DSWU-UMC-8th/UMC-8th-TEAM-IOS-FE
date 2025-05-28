@@ -6,15 +6,25 @@
 //
 
 import SwiftUI
+import Kingfisher
+
+enum Route: Hashable {
+    case movieDetail(id: Int)
+    case myPage
+}
 
 struct MainView: View {
     @State private var viewModel = MovieViewModel()
-    
+    @State private var selectedRoute: Route? = nil
+
     var body: some View {
-        VStack(spacing: 0) {
-            TopView
-            MainView
+        NavigationStack {
+            VStack(spacing: 0) {
+                TopView
+                MovieView
+            }
         }
+        .navigationBarBackButtonHidden()
     }
     
     private var TopView: some View {
@@ -26,11 +36,10 @@ struct MainView: View {
             
             Spacer()
             
-            Button(action: {}) {
-                // 임시
-                Circle()
-                    .frame(width: 43, height: 43)
-                    .foregroundStyle(.base)
+            NavigationLink(destination: MyPageView()){
+                Image(.myPixel)
+                    .resizable()
+                    .frame(width: 34, height: 34)
             }
         }
         .padding(.horizontal, 16)
@@ -38,11 +47,11 @@ struct MainView: View {
         .background(.limeShade)
     }
     
-    private var MainView: some View {
+    private var MovieView: some View {
         VStack(alignment: .leading, spacing: 33) {
             movieSection(title: "오늘의 추천 영화", movies: viewModel.recommendMovies)
-            movieSection(title: "최근 개봉한 영화", movies: viewModel.recentMovies)
-            movieSection(title: "리뷰가 좋은 영화", movies: viewModel.reviewMovies)
+            movieSection(title: "최근 개봉한 영화", movies: viewModel.nowplayingMovies)
+            movieSection(title: "평점 높은 영화", movies: viewModel.topratedMovies)
         }
         .padding(.top, 37)
         .background(.base)
@@ -56,8 +65,10 @@ struct MainView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 18) {
-                    ForEach(movies.indices, id: \.self) { index in
-                        MovieCard(movie: movies[index])
+                    ForEach(movies) { movie in
+                        NavigationLink(destination: MovieDetailView(movieId: movie.id)){
+                            MovieCard(movie: movie)
+                        }
                     }
                 }
                 .padding(.horizontal, 16)
@@ -68,25 +79,22 @@ struct MainView: View {
 
 struct MovieCard: View {
     let movie: MovieModel
-    
+
     var body: some View {
-        Button(action: {
-            print("선택된 영화: \(movie.movieName)")
-        }) {
-            VStack(alignment: .leading) {
-                // 임시
-                movie.movieImage
-                    .resizable()
-                    .frame(width: 94, height: 126)
-                    .background(.gray)
-                
-                Text(movie.movieName)
-                    .font(.pretendardMedium16)
-                    .foregroundStyle(.black)
-                    .lineLimit(1)
-            }
-            .frame(width: 94)
+        VStack(alignment: .leading) {
+            KFImage(URL(string: movie.posterUrl))
+                .placeholder { ProgressView() }
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 94, height: 126)
+                .clipped()
+
+            Text(movie.title)
+                .font(.pretendardMedium16)
+                .foregroundStyle(.black)
+                .lineLimit(1)
         }
+        .frame(width: 94)
     }
 }
 
