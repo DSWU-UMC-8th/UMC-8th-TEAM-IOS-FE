@@ -8,18 +8,28 @@
 import SwiftUI
 import Kingfisher
 
+enum Route: Hashable {
+    case movieDetail(id: Int)
+    case myPage
+}
+
 struct MainView: View {
     @State private var viewModel = MovieViewModel()
-    @State private var selectedMovieId: Int? = nil
-    
+    @State private var selectedRoute: Route? = nil
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
                 TopView
-                MainView
+                MovieView
             }
-            .navigationDestination(item: $selectedMovieId) { id in
-                MovieDetailView(movieId: id)
+            .navigationDestination(item: $selectedRoute) { route in
+                switch route {
+                case .movieDetail(let id):
+                    MovieDetailView(movieId: id)
+                case .myPage:
+                    MyPageView()
+                }
             }
         }
         .navigationBarBackButtonHidden()
@@ -34,8 +44,9 @@ struct MainView: View {
             
             Spacer()
             
-            Button(action: {}) {
-                // 임시
+            Button(action: {
+                selectedRoute = .myPage
+            }) {
                 Circle()
                     .frame(width: 43, height: 43)
                     .foregroundStyle(.base)
@@ -46,7 +57,7 @@ struct MainView: View {
         .background(.limeShade)
     }
     
-    private var MainView: some View {
+    private var MovieView: some View {
         VStack(alignment: .leading, spacing: 33) {
             movieSection(title: "오늘의 추천 영화", movies: viewModel.recommendMovies)
             movieSection(title: "최근 개봉한 영화", movies: viewModel.nowplayingMovies)
@@ -66,7 +77,7 @@ struct MainView: View {
                 LazyHStack(spacing: 18) {
                     ForEach(movies) { movie in
                         MovieCard(movie: movie) {
-                            selectedMovieId = movie.id
+                            selectedRoute = .movieDetail(id: movie.id)
                         }
                     }
                 }

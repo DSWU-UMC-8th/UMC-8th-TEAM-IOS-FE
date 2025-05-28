@@ -25,6 +25,7 @@ struct MyPageView: View {
                 await reviewViewModel.fetchMyReview(userId: userId)
                 await userViewModel.fetchUserInfo(userId: userId)
         }
+        .navigationBarBackButtonHidden()
     }
     
     private func infoGroup(userInfo: UserInfoModel?) -> some View {

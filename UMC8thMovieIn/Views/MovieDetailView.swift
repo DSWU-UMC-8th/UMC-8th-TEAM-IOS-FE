@@ -47,7 +47,6 @@ struct MovieDetailView: View {
             }
         }
         .navigationBarBackButtonHidden()
-        
     }
     
     //상단 바
