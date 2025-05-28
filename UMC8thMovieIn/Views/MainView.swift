@@ -23,14 +23,6 @@ struct MainView: View {
                 TopView
                 MovieView
             }
-            .navigationDestination(item: $selectedRoute) { route in
-                switch route {
-                case .movieDetail(let id):
-                    MovieDetailView(movieId: id)
-                case .myPage:
-                    MyPageView()
-                }
-            }
         }
         .navigationBarBackButtonHidden()
     }
@@ -44,12 +36,10 @@ struct MainView: View {
             
             Spacer()
             
-            Button(action: {
-                selectedRoute = .myPage
-            }) {
-                Circle()
-                    .frame(width: 43, height: 43)
-                    .foregroundStyle(.base)
+            NavigationLink(destination: MyPageView()){
+                Image(.myPixel)
+                    .resizable()
+                    .frame(width: 34, height: 34)
             }
         }
         .padding(.horizontal, 16)
@@ -76,8 +66,8 @@ struct MainView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 18) {
                     ForEach(movies) { movie in
-                        MovieCard(movie: movie) {
-                            selectedRoute = .movieDetail(id: movie.id)
+                        NavigationLink(destination: MovieDetailView(movieId: movie.id)){
+                            MovieCard(movie: movie)
                         }
                     }
                 }
@@ -89,27 +79,22 @@ struct MainView: View {
 
 struct MovieCard: View {
     let movie: MovieModel
-    let onTap: () -> Void
 
     var body: some View {
-        Button(action: {
-            onTap()
-        }) {
-            VStack(alignment: .leading) {
-                KFImage(URL(string: movie.posterUrl))
-                    .placeholder { ProgressView() }
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 94, height: 126)
-                    .clipped()
+        VStack(alignment: .leading) {
+            KFImage(URL(string: movie.posterUrl))
+                .placeholder { ProgressView() }
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 94, height: 126)
+                .clipped()
 
-                Text(movie.title)
-                    .font(.pretendardMedium16)
-                    .foregroundStyle(.black)
-                    .lineLimit(1)
-            }
-            .frame(width: 94)
+            Text(movie.title)
+                .font(.pretendardMedium16)
+                .foregroundStyle(.black)
+                .lineLimit(1)
         }
+        .frame(width: 94)
     }
 }
 

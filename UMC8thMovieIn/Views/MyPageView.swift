@@ -14,9 +14,12 @@ struct MyPageView: View {
     //@AppStorage("nickname") private var nickname: String = "닉네임"
     //@AppStorage("email") private var email: String = "email@naver.com"
     @AppStorage("userId") private var userId: Int = 5
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack (spacing: 0){
+            TopGroup
+            
             infoGroup(userInfo: userViewModel.userInfo)
             
             myReviewGroup
@@ -26,6 +29,31 @@ struct MyPageView: View {
                 await userViewModel.fetchUserInfo(userId: userId)
         }
         .navigationBarBackButtonHidden()
+    }
+    
+    //상단 바
+    private var TopGroup: some View {
+        ZStack {
+            Text("마이페이지")
+                .font(.galmuri20)
+                .foregroundStyle(.black)
+            HStack(){
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(.logo)
+                        .resizable()
+                        .frame(width: 34, height: 34)
+                }
+                
+                Spacer()
+            }
+            .padding(.horizontal, 13.5)
+        }
+        .padding(.top, 5)
+        .padding(.bottom, 14)
+        .frame(maxWidth: .infinity)
+        .background(.limeShade)
     }
     
     private func infoGroup(userInfo: UserInfoModel?) -> some View {
