@@ -6,9 +6,22 @@
 //
 
 import Foundation
-import SwiftUI
 
-struct MovieModel {
-    let movieImage: Image
-    let movieName: String
+struct MovieModel: Identifiable, Decodable {
+    let id: Int
+    let title: String
+    let posterUrl: String
+
+    enum CodingKeys: String, CodingKey {
+        case id = "movieId"
+        case title
+        case posterUrl
+    }
+}
+
+struct MovieResponse: Decodable {
+    let isSuccess: Bool
+    let code: Int
+    let message: String
+    let result: [MovieModel]
 }

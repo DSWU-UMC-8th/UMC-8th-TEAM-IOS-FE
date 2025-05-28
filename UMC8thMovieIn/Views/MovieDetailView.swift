@@ -46,6 +46,7 @@ struct MovieDetailView: View {
                 .background(.base)
             }
         }
+        .navigationBarBackButtonHidden()
         
     }
     

@@ -37,17 +37,19 @@ struct LoginView: View {
                         .padding(.horizontal)
                         .frame(width: 320, height: 50)
                         .background(Color("lime2"))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .textInputAutocapitalization(.never)
                     
                     // 비밀번호 입력
                     SecureField("비밀번호 입력", text: $password)
                         .padding(.horizontal)
                         .frame(width: 320, height: 50)
                         .background(Color("lime2"))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
                 
                 // 로그인 버튼
                 ZStack{
-                    Image("login-btn")
                     Button(action: {
                         login()
                     }) {
@@ -56,6 +58,7 @@ struct LoginView: View {
                             .font(.pretendardBold22)
                             .frame(width: 320, height: 60)
                             .background(Color("standard"))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                         
                     }
                 }
@@ -97,6 +100,7 @@ struct LoginView: View {
                         self.token = res.token
                         self.isLoggedIn = true
                     }
+                    print(res.result.userId)
                 case .failure(let err):
                     DispatchQueue.main.async {
                         self.alertMessage = err.localizedDescription

@@ -6,15 +6,23 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MainView: View {
     @State private var viewModel = MovieViewModel()
+    @State private var selectedMovieId: Int? = nil
     
     var body: some View {
-        VStack(spacing: 0) {
-            TopView
-            MainView
+        NavigationStack {
+            VStack(spacing: 0) {
+                TopView
+                MainView
+            }
+            .navigationDestination(item: $selectedMovieId) { id in
+                MovieDetailView(movieId: id)
+            }
         }
+        .navigationBarBackButtonHidden()
     }
     
     private var TopView: some View {
@@ -41,8 +49,8 @@ struct MainView: View {
     private var MainView: some View {
         VStack(alignment: .leading, spacing: 33) {
             movieSection(title: "오늘의 추천 영화", movies: viewModel.recommendMovies)
-            movieSection(title: "최근 개봉한 영화", movies: viewModel.recentMovies)
-            movieSection(title: "리뷰가 좋은 영화", movies: viewModel.reviewMovies)
+            movieSection(title: "최근 개봉한 영화", movies: viewModel.nowplayingMovies)
+            movieSection(title: "평점 높은 영화", movies: viewModel.topratedMovies)
         }
         .padding(.top, 37)
         .background(.base)
@@ -56,8 +64,10 @@ struct MainView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 18) {
-                    ForEach(movies.indices, id: \.self) { index in
-                        MovieCard(movie: movies[index])
+                    ForEach(movies) { movie in
+                        MovieCard(movie: movie) {
+                            selectedMovieId = movie.id
+                        }
                     }
                 }
                 .padding(.horizontal, 16)
@@ -68,19 +78,21 @@ struct MainView: View {
 
 struct MovieCard: View {
     let movie: MovieModel
-    
+    let onTap: () -> Void
+
     var body: some View {
         Button(action: {
-            print("선택된 영화: \(movie.movieName)")
+            onTap()
         }) {
             VStack(alignment: .leading) {
-                // 임시
-                movie.movieImage
+                KFImage(URL(string: movie.posterUrl))
+                    .placeholder { ProgressView() }
                     .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 94, height: 126)
-                    .background(.gray)
-                
-                Text(movie.movieName)
+                    .clipped()
+
+                Text(movie.title)
                     .font(.pretendardMedium16)
                     .foregroundStyle(.black)
                     .lineLimit(1)
