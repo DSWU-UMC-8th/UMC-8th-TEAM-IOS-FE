@@ -9,6 +9,11 @@ import Foundation
 import SwiftUI
 
 struct PostModel {
-    let rating: Int
-    let content: String
+    var rating: Int = 0
+    var content: String = ""
+    
+    var likeCount: Int = 365
+    var dislikeCount: Int = 278
+
 }
+
