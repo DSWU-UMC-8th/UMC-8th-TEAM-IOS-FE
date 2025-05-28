@@ -64,6 +64,7 @@ struct MyPageView: View {
         VStack(alignment: .leading, spacing: 24) {
             Text("내가 쓴 리뷰")
                 .font(.galmuri(size: 30))
+                .frame(maxWidth: .infinity, alignment: .leading)
             
             MyReviewSection(reviews: reviewViewModel.myReviews)
             
