@@ -26,9 +26,16 @@ struct SignupView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             ScrollView {
-                VStack(spacing: 30) {
+                VStack(spacing: 0) {
+                    Rectangle()
+                        .frame(height: 40)
+                        .foregroundStyle(.standard)
                     HStack {
-                        Image("menu")
+                        Button(action: {
+                            dismiss()
+                        }) {
+                            Image("menu")
+                        }
                         Spacer()
                         Text("회원가입")
                             .font(.galmuri20)
