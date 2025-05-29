@@ -10,6 +10,7 @@ import Kingfisher
 
 struct ReviewView: View {
     let movieId: Int
+    @ObservedObject var parentViewModel: MovieDetailViewModel
     @StateObject private var viewModel = PostViewModel()
     
     var body: some View{
@@ -21,6 +22,7 @@ struct ReviewView: View {
             guard newPost != nil else { return }
             Task {
                 await viewModel.fetchReviews(for: movieId)
+                await parentViewModel.loadReviews(movieId: movieId)
             }
         }
     }
@@ -196,8 +198,4 @@ struct ReviewView: View {
     }
     
 
-}
-
-#Preview {
-    ReviewView(movieId: 1)
 }
