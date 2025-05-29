@@ -55,6 +55,7 @@ struct SignupView: View {
                                 Text("아이디").font(.galmuri20)
                                 HStack(spacing: 0) {
                                     TextField("아이디", text: $userId)
+                                        .font(.pretendardMedium15)
                                         .textFieldStyle(LimeTextFieldStyle())
                                         .autocapitalization(.none)
                                         .disableAutocorrection(true)
@@ -102,6 +103,7 @@ struct SignupView: View {
                             VStack(alignment: .leading, spacing: 10) {
                                 Text("비밀번호").font(.galmuri20)
                                 SecureField("비밀번호", text: $password)
+                                    .font(.pretendardMedium15)
                                     .textFieldStyle(LimeTextFieldStyle())
                                     .autocapitalization(.none)
                                     .disableAutocorrection(true)
@@ -110,6 +112,7 @@ struct SignupView: View {
                                         .font(.pretendardRegular14)
                                 }
                                 SecureField("비밀번호 확인", text: $confirmPassword)
+                                    .font(.pretendardMedium15)
                                     .textFieldStyle(LimeTextFieldStyle())
                                     .autocapitalization(.none)
                                     .disableAutocorrection(true)
@@ -123,6 +126,7 @@ struct SignupView: View {
                                 Text("이메일").font(.galmuri20)
                                 HStack(spacing: 0) {
                                     TextField("이메일", text: $email)
+                                        .font(.pretendardMedium15)
                                         .textFieldStyle(LimeTextFieldStyle())
                                         .autocapitalization(.none)
                                         .disableAutocorrection(true)
@@ -150,6 +154,7 @@ struct SignupView: View {
                             VStack(alignment: .leading, spacing: 10) {
                                 Text("닉네임").font(.galmuri20)
                                 TextField("ex) 팝콘먹는 자라", text: $nickname)
+                                    .font(.pretendardMedium15)
                                     .textFieldStyle(LimeTextFieldStyle())
                                     .autocapitalization(.none)
                                     .disableAutocorrection(true)

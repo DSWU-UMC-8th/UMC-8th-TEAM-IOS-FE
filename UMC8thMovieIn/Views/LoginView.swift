@@ -40,6 +40,7 @@ struct LoginView: View {
                         .background(Color("lime2"))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .textInputAutocapitalization(.never)
+                        .font(.pretendardMedium15)
                     
                     // 비밀번호 입력
                     SecureField("비밀번호 입력", text: $password)
@@ -47,6 +48,7 @@ struct LoginView: View {
                         .frame(width: 320, height: 50)
                         .background(Color("lime2"))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .font(.pretendardMedium15)
                 }
                 
                 // 로그인 버튼
