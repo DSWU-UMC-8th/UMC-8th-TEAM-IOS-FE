@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct ReviewView: View {
+    let movieId: Int
     @StateObject private var viewModel = PostViewModel()
     
     var body: some View{
@@ -151,7 +152,7 @@ struct ReviewView: View {
                         Button(action:{
                             Task {
                                 await
-                                viewModel.submitReview(movieID: 1, feelingTags: [1, 3, 5])
+                                viewModel.submitReview(movieID: movieId, feelingTags: [1, 3, 5])
                                 
                             }
                         }, label: {
@@ -198,5 +199,5 @@ struct ReviewView: View {
 }
 
 #Preview {
-    ReviewView()
+    ReviewView(movieId: 1)
 }
