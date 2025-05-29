@@ -31,8 +31,8 @@ struct MovieDetailView: View {
                         ProgressView()
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                    ReviewTitleGroup
                     ReviewView()
+                    ReviewTitleGroup
                     OptionGroup
                     ReviewGroup
                     Spacer()

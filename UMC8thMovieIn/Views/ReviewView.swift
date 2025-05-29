@@ -16,6 +16,12 @@ struct ReviewView: View {
             recommendGroup
             postGroup
         }
+        .onChange(of: viewModel.submittedPost) { newPost in
+            guard newPost != nil else { return }
+            Task {
+                await viewModel.fetchReviews(for: 1)
+            }
+        }
     }
     
     private var recommendGroup: some View {
@@ -101,6 +107,7 @@ struct ReviewView: View {
                             .onTapGesture {
                                 withAnimation(.spring()) {
                                     viewModel.rating = index
+                                    print("⭐️ 선택된 별점: \(viewModel.rating)")
                                 }
                             }
                     }
@@ -142,7 +149,13 @@ struct ReviewView: View {
                                 }
                             }
                         Spacer()
-                        Button(action:{}, label: {
+                        Button(action:{
+                            Task {
+                                await
+                                viewModel.submitReview(movieID: 1, feelingTags: [1, 3, 5])
+                                
+                            }
+                        }, label: {
                             ZStack{
                                 Rectangle()
                                     .frame(width: 80, height: 33)
@@ -181,6 +194,7 @@ struct ReviewView: View {
         .padding(.horizontal, 17.5)
         .background(.base)
     }
+    
 
 }
 

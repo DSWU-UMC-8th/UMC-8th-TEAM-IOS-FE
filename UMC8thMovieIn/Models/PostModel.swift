@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct PostModel {
+struct PostModel: Codable, Equatable {
     var rating: Int = 0
     var content: String = ""
     
