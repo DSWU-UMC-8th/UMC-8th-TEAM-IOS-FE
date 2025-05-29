@@ -32,6 +32,7 @@ struct MovieDetailView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     ReviewTitleGroup
+                    ReviewView()
                     OptionGroup
                     ReviewGroup
                     Spacer()
@@ -51,7 +52,7 @@ struct MovieDetailView: View {
     //상단 바
     private var TopGroup: some View {
         VStack {
-            HStack(spacing: 115){
+            HStack{
                 Button(action: {
                     dismiss()
                 }) {
@@ -61,6 +62,7 @@ struct MovieDetailView: View {
                 }
                 Text(viewModel.movieDetail?.movieName ?? "영화 이름")
                     .font(.galmuri20)
+                    .frame(width: 300)
                 NavigationLink(destination: MyPageView()){
                     Image(.myPixel)
                         .resizable()
@@ -84,7 +86,6 @@ struct MovieDetailView: View {
                 }
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 400, height: 234)
             
             Spacer().frame(height: 24)
             
