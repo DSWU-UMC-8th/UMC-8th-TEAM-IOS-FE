@@ -13,7 +13,7 @@ struct MyPageView: View {
     @StateObject private var userViewModel = UserViewModel()
     //@AppStorage("nickname") private var nickname: String = "닉네임"
     //@AppStorage("email") private var email: String = "email@naver.com"
-    @AppStorage("userId") private var userId: Int = 5
+    @AppStorage("userId") private var userId: Int = 25
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -100,7 +100,7 @@ struct MyPageView: View {
             Spacer()
         }
         .padding(.horizontal, 19)
-        .padding(.vertical, 34)
+        .padding(.top, 34)
         .frame(maxWidth: .infinity)
         .background(.base)
     }
