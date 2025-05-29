@@ -29,12 +29,18 @@
 </br>
 
 # 💻 시연 영상
- 
+<a href="https://youtube.com/shorts/A12N46SftsU?feature=share" target="_blank">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" width="26" style="vertical-align: middle;"/>
+  시연 영상 보러가기
+</a>
+
+</br>
 </br>
 
 # ✨ 구현 화면
 | Title         | Img                                   | Title         | Img                                   |
 | ------------ | ---------------------------------------- | ------------ | ---------------------------------------- |
 | 로그인 | ![Simulator Screenshot - iPhone 16 - 2025-05-29 at 16 48 56](https://github.com/user-attachments/assets/3e9dac01-dbca-4061-8f6e-5053bdb4ff89) | 회원가입 | ![Simulator Screenshot - iPhone 16 - 2025-05-29 at 16 48 59](https://github.com/user-attachments/assets/6d9aae94-c07e-4c49-a768-750d61638b73) |
-| 메인 | ![Simulator Screenshot - iPhone 16 - 2025-05-29 at 16 48 13](https://github.com/user-attachments/assets/7dcee0aa-4b88-46a9-9928-f05b96895e04) | 마이페이지 |  |
+| 메인 | ![Simulator Screenshot - iPhone 16 - 2025-05-29 at 16 48 13](https://github.com/user-attachments/assets/7dcee0aa-4b88-46a9-9928-f05b96895e04) | 마이페이지 | ![simulator_screenshot_B30E7A14-1474-4A50-8642-67E732246315](https://github.com/user-attachments/assets/ecf997d0-574b-4052-b921-0814bf13b871) |
 | 영화 상세 | ![Simulator Screenshot - iPhone 16 - 2025-05-29 at 16 48 27](https://github.com/user-attachments/assets/3cac29b0-cf0d-48df-835f-1b2fa39133c0) | 리뷰 작성 | ![Simulator Screenshot - iPhone 16 - 2025-05-29 at 16 48 43](https://github.com/user-attachments/assets/4b473e5f-af5e-4f20-b10d-22e55220f95a) |
+
