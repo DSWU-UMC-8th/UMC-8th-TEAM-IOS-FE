@@ -54,7 +54,7 @@ class PostViewModel: ObservableObject {
         let url = URL(string: "http://52.78.195.123:3000/api/reviews")!
         let requestData = ReviewRequest(
             movie_id: movieID,
-            rating: rating,
+            rating: rating * 2, 
             content: text,
             spoiler: containsSpoiler,
             feeling_tags: feelingTags
