@@ -162,11 +162,12 @@ struct ReviewView: View {
                                 Rectangle()
                                     .frame(width: 80, height: 33)
                                     .foregroundStyle(.limeShade)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
                                 Text("등록")
                             }
                         })
                     }
-                    .padding(.init(top: 220, leading: 16, bottom: 0, trailing: 16))
+                    .padding(.init(top: 210, leading: 16, bottom: 0, trailing: 16))
                 }
                 .foregroundColor(.black)
             } else{
