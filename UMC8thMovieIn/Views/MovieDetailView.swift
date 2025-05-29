@@ -31,7 +31,7 @@ struct MovieDetailView: View {
                         ProgressView()
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                    ReviewView()
+                    ReviewView(movieId: movieId)
                     ReviewTitleGroup
                     OptionGroup
                     ReviewGroup
