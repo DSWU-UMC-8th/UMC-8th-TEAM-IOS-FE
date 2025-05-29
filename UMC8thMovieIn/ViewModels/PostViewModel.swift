@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Alamofire
 
 struct ReviewRequest: Encodable {
     let movie_id: Int
@@ -18,6 +19,7 @@ struct ReviewRequest: Encodable {
 
 class PostViewModel: ObservableObject {
     @AppStorage("token") var token: String = ""
+    @AppStorage("userId") var userId: Int = 0
     @Published var post = PostModel()
     @Published var rating: Int = 0
     @Published var isWritingReview: Bool = false
@@ -126,6 +128,21 @@ class PostViewModel: ObservableObject {
             print("❌ 리뷰 목록 에러: \(error.localizedDescription)")
         }
     }
-
+ 
+    // 추천
+    func recommendMovie(movieId: Int) {
+        let url = "http://52.78.195.123:3000/api/movies/\(movieId)/like"
+        
+        AF.request(url, method: .post)
+        .validate()
+        .responseDecodable(of: RecommendDTO.self) { response in
+            switch response.result {
+            case .success(let res):
+                self.post.likeCount += 1
+            case .failure(let error):
+                print("영화 추천 API 실패: \(error.localizedDescription)")
+            }
+        }
+    }
 
 }
