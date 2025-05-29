@@ -15,6 +15,17 @@ struct MovieDetailView: View {
     @State private var selectedOption: String? = nil
     @Environment(\.dismiss) private var dismiss
     
+    private var sortedReviews: [MovieReview] {
+        switch selectedOption {
+        case "높은 순":
+            return viewModel.reviews.sorted { $0.starRating > $1.starRating }
+        case "낮은 순":
+            return viewModel.reviews.sorted { $0.starRating < $1.starRating }
+        default:
+            return viewModel.reviews
+        }
+    }
+    
     var body: some View {
         VStack(spacing: 0){
             TopGroup
@@ -202,7 +213,7 @@ struct MovieDetailView: View {
     //리뷰 목록
     private var ReviewGroup: some View {
         VStack(alignment: .leading){
-            ForEach(viewModel.reviews) { review in
+            ForEach(sortedReviews) { review in
                 VStack(alignment: .leading){
                     HStack(spacing: 12){
                         Circle()
