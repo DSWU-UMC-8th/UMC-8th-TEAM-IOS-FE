@@ -107,7 +107,6 @@ struct ReviewView: View {
                             .onTapGesture {
                                 withAnimation(.spring()) {
                                     viewModel.rating = index
-                                    print("⭐️ 선택된 별점: \(viewModel.rating)")
                                 }
                             }
                     }
