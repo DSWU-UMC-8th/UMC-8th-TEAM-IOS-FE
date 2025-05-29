@@ -95,7 +95,7 @@ struct MyPageView: View {
                 .font(.galmuri(size: 30))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            MyReviewSection(reviews: reviewViewModel.myReviews)
+            MyReviewSection(myReviews: reviewViewModel.myReviews)
             
             Spacer()
         }
@@ -105,34 +105,52 @@ struct MyPageView: View {
         .background(.base)
     }
     
+    
     // 내가 쓴 리뷰 섹션
-    private func MyReviewSection(reviews: [MyReviewModel]) -> some View {
-        ForEach(reviews.indices, id: \.self) { index in
-            VStack(alignment: .leading, spacing: 21) {
-                HStack(spacing: 19) {
-                    // 영화 이미지
-                    Image(reviews[index].movieImage)
-                        .resizable()
-                        .frame(width: 94, height: 126)
-                        .background(.perplexityBase)
-                    
-                    // 영화 텍스트
-                    VStack(alignment: .leading, spacing: 10) {
-                        VStack(alignment: .leading, spacing: 2) {
-                            // 영화 제목
-                            Text(reviews[index].movieTiTle)
-                                .font(.pretendardMedium16)
-                            
-                            // 영화 평점
-                            starIcon(rating: reviews[index].movieRating)
-                        }
-                        
-                        // 영화 리뷰
-                        Text(reviews[index].movieReview)
-                            .font(.pretendardMedium16)
-                    }
+    private func MyReviewSection(myReviews: [MyReviewModel]) -> some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            LazyVStack(spacing: 21) {
+                ForEach(myReviews, id: \.reviewId) { review in
+                    ReviewCard(review: review)
                 }
             }
+            //.padding(.horizontal, 16)
+            .frame(maxWidth: .infinity)
+        }
+    }
+}
+
+struct ReviewCard: View {
+    let review: MyReviewModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 21) {
+            HStack(spacing: 19) {
+                // 영화 이미지
+                KFImage(URL(string: review.movieImage))
+                    .resizable()
+                    .frame(width: 94, height: 126)
+                    .background(.perplexityBase)
+                
+                // 영화 텍스트
+                VStack(alignment: .leading, spacing: 10) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        // 영화 제목
+                        Text(review.movieTitle)
+                            .font(.pretendardMedium16)
+                        
+                        // 영화 평점
+                        starIcon(rating: review.rating)
+                    }
+                    
+                    // 영화 리뷰
+                    Text(review.content)
+                        .font(.pretendardMedium16)
+                }
+                
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
         }
     }
     
@@ -152,6 +170,7 @@ struct MyPageView: View {
         }
     }
 }
+
 
 #Preview {
     MyPageView()

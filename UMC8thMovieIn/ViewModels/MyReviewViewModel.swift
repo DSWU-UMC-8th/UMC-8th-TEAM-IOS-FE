@@ -7,30 +7,28 @@
 
 import SwiftUI
 
+@MainActor
 class MyReviewViewModel: ObservableObject {
     @Published var myReviews: [MyReviewModel] = []
-    @Published var errorMessage: String? 
+    @Published var errorMessage: String?
 
-    func fetchMyReview(userId: Int) {
-        Task {
-            do {
-                let response = try await APIClient.shared.fetchMyReview(userId: userId)
-                DispatchQueue.main.async {
-                    if response.isSuccess {
-                        self.myReviews = response.result.myReviews
-                        self.errorMessage = nil
-                    } else {
-                        self.errorMessage = response.message
-                    }
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    self.errorMessage = error.localizedDescription
-                }
+    func fetchMyReview(userId: Int) async {
+        do {
+            let response = try await APIClient.shared.fetchMyReview(userId: userId)
+            if response.isSuccess {
+                self.myReviews = response.result
+                self.errorMessage = nil
+            } else {
+                self.errorMessage = response.message
+                print("[❌ API 실패] 서버 응답 메시지: \(response.message)")
             }
+        } catch {
+            self.errorMessage = error.localizedDescription
+            print("[❌ 네트워크 에러] \(error.localizedDescription)")
         }
     }
 }
+
 
 
 /*

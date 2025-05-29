@@ -10,19 +10,18 @@ import SwiftUI
 
 struct MyReviewResponse: Decodable {
     let isSuccess: Bool
-    let code: String
+    let code: Int
     let message: String
-    let result: MyReviewResult
-}
-
-struct MyReviewResult: Decodable {
-    let myReviews: [MyReviewModel]  
+    let result: [MyReviewModel]
 }
 
 struct MyReviewModel: Decodable {
-    let movieTiTle: String
+    let reviewId: Int
+    let movieId: Int
+    let movieTitle: String
     let movieImage: String
-    let movieRating: Int
-    let movieReview: String 
+    let rating: Int
+    let content: String
+    let created_at: String
 }
 
